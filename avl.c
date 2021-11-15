@@ -133,6 +133,30 @@ void traverse_avl(struct avl_node *root)
     }
 }
 
+
+int search_in_avl(struct avl_node *root, int val)
+{
+    if(root == NULL)
+    {
+        return -1;
+    }
+    else
+    {
+        if(root->val == val)
+        {
+            return 0;
+        }
+        else if(root->val > val)
+        {
+            return search_in_avl(root->left,val);
+        }
+        else 
+        {
+            return search_in_avl(root->right,val);
+        }
+    }
+}
+
 static int* generate_val_array(unsigned int count)
 {
     int i = 0;
@@ -150,9 +174,10 @@ static int* generate_val_array(unsigned int count)
 }
 
 
+
 int main(int argc, char * argv[])
 {
-    int i,count;
+    int i,count,ret;
 
     if(argc < 2)
     {
@@ -174,7 +199,23 @@ int main(int argc, char * argv[])
         insert_into_avl(&g_avl_root,data_array[i]);
     }
 
-    traverse_avl(g_avl_root);
+    //traverse_avl(g_avl_root);
+
+    for(i=0;i<count;i++)
+    {
+        ret = search_in_avl(g_avl_root,data_array[i]);
+        assert(ret==0);
+    }
+
+    for(i=0;i<10;i++)
+    {
+        int val = rand();
+        ret = search_in_avl(g_avl_root,val);
+        if(ret != 0)
+        {
+            printf("get %x not in avl_tree\n",val);
+        }
+    }
 
     return 0;
 }

@@ -16,4 +16,6 @@ void traverse_avl(struct avl_node *root);
 
 int find_val_from_avl(struct avl_node *root, int val);
 
+int search_in_avl(struct avl_node *root, int val);
+
 #endif
